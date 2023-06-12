@@ -10,12 +10,28 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Product extends Model
 {
     use HasFactory;
-
+/**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'description',
+        'code',
+        'stock',
+        'image',
+        'quantity_min',
+        'quantity_max',
+        'sales',
+        'price',
+    ];
+    
     /**relacion  M to M*/
     public function locations(): BelongsToMany
     {
-        return $this->belongsToMany(Location::class)
-            ->withPivot('date_mov', 'quantity', 'description')
+        return $this->belongsToMany(Location::class, 'location_product')
+            ->withPivot('quantity', 'description')
             ->withTimestamps();
     }
 

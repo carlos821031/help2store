@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('address')->nullable()->comment('Direccion');
             $table->string('description')->nullable()->comment('Descripcion de la ubicacion');
             $table->string('code')->nullable()->comment('Codigo para la ubicacion');
+            $table->boolean('shop')->default('0')->nullable()->comment('identifica si es tienda');
             $table->float('latitude')->nullable()->comment('latitude');
             $table->float('longitude')->nullable()->comment('longitude');
             $table->timestamps();

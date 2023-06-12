@@ -1,0 +1,1 @@
+@livewire('administrator.movement')

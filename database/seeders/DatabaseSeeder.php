@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         $store = Role::create(['name' => 'store']);
         $guest = Role::create(['name' => 'guest']);
 
+        Permission::create(['name' => 'administration'])->syncRoles([$admin, $sales, $store, $guest]);
         Permission::create(['name' => 'administration.index'])->syncRoles([$admin, $sales, $store, $guest]);
         Permission::create(['name' => 'administration.user'])->syncRoles([$admin]);
         Permission::create(['name' => 'administration.users.index'])->syncRoles([$admin]);
@@ -32,6 +33,9 @@ class DatabaseSeeder extends Seeder
         Permission::create(['name' => 'administration.users.update'])->syncRoles([$admin]);
         Permission::create(['name' => 'administration.users.destroy'])->syncRoles([$admin]);
         Permission::create(['name' => 'administration.users.edit'])->syncRoles([$admin]);
+
+        Permission::create(['name' => 'movement'])->syncRoles([$admin, $sales, $store, $guest]);
+        Permission::create(['name' => 'movement.index'])->syncRoles([$admin, $sales, $store, $guest]);
 
         User::create([
             'name' => 'Administrator',
@@ -61,14 +65,14 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password'),
             'active' => '1',
         ])->assignRole('guest');
-        Location::create([
+        /*Location::create([
             'name' => 'Proveedores',
             'description' => 'Proveedores de servicios',
             'address' => 'Dirección variadas',
             'code' => '00000001',
             'latitude' => '00000001',
             'longitude' => '00000001',
-        ]);
+        ]);*/
         location::create([
             'name' => 'Merma',
             'description' => 'Ubicaciones para merma',
@@ -78,7 +82,7 @@ class DatabaseSeeder extends Seeder
             'longitude' => '00000002',
         ]);
         location::create([
-            'name' => 'Almacen1',
+            'name' => 'Almacen',
             'description' => 'Almacen 1',
             'address' => 'Dirección variadas',
             'code' => '00000003',
@@ -86,28 +90,28 @@ class DatabaseSeeder extends Seeder
             'longitude' => '00000003',
         ]);
         location::create([
-            'name' => 'Tienda1',
+            'name' => 'Tienda',
             'description' => 'Tienda1',
             'address' => 'Dirección variadas',
             'code' => '00000004',
             'latitude' => '00000004',
             'longitude' => '00000004',
         ]);
-        location::create([
+        /*location::create([
             'name' => 'Cliente',
             'description' => 'Cliente',
             'address' => 'Cliente',
             'code' => '00000005',
             'latitude' => '00000005',
             'longitude' => '00000005',
-        ]);
-        Employee::create([
+        ]);*/
+        /*Employee::create([
             'name' => 'Proveedor',
             'email' => 'proveedor@proveedor.cu',
             'phone' => '00000000',
             'salary' => '0',
             'active' => '1',
-        ]);
+        ]);*/
         employee::create([
             'name' => 'Almacenero',
             'email' => 'almacenero@proveedor.cu',
@@ -115,13 +119,13 @@ class DatabaseSeeder extends Seeder
             'salary' => '0',
             'active' => '1',
         ]);
-        employee::create([
+        /*employee::create([
             'name' => 'Cliente',
             'email' => 'cliente@proveedor.cu',
             'phone' => '00000002',
             'salary' => '0',
             'active' => '1',
-        ]);
+        ]);*/
         employee::create([
             'name' => 'Dependiente1',
             'email' => 'dependiente1@proveedor.cu',
@@ -136,9 +140,9 @@ class DatabaseSeeder extends Seeder
             'salary' => '0',
             'active' => '1',
         ]);
-        \App\Models\User::factory(10)->create();
+        //\App\Models\User::factory(10)->create();
         //\App\Models\location::factory(5)->create();
         \App\Models\product::factory(10)->create();
-        \App\Models\employee::factory(20)->create();
+        //\App\Models\employee::factory(20)->create();
     }
 }

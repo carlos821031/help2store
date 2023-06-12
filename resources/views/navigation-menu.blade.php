@@ -16,6 +16,33 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+                @can('administration')
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link href="{{ route('administration.movement.index') }}" :active="request()->routeIs('movement.*')">
+                            {{ __('Movement') }}
+                        </x-nav-link>
+                    </div>                
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link href="{{ route('administration.location.index') }}" :active="request()->routeIs('location.*')">
+                            {{ __('Location') }}
+                        </x-nav-link>
+                    </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link href="{{ route('administration.employee.index') }}" :active="request()->routeIs('employee.*')">
+                            {{ __('Employee') }}
+                        </x-nav-link>
+                    </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link href="{{ route('administration.product.index') }}" :active="request()->routeIs('product.*')">
+                            {{ __('Product') }}
+                        </x-nav-link>
+                    </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link href="{{ route('administration.user.index') }}" :active="request()->routeIs('user.*')">
+                            {{ __('User') }}
+                        </x-nav-link>
+                    </div>
+                @endcan
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -142,6 +169,23 @@
             <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            @can('administration')
+                <x-responsive-nav-link href="{{ route('administration.movement.index') }}" :active="request()->routeIs('movement.*')">
+                    {{ __('Movement') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('administration.location.index') }}" :active="request()->routeIs('location.*')">
+                    {{ __('Location') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('administration.employee.index') }}" :active="request()->routeIs('employee.*')">
+                    {{ __('Employee') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('administration.product.index') }}" :active="request()->routeIs('product.*')">
+                    {{ __('Product') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('administration.user.index') }}" :active="request()->routeIs('user.*')">
+                    {{ __('User') }}
+                </x-responsive-nav-link>
+            @endcan            
         </div>
 
         <!-- Responsive Settings Options -->

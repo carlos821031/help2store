@@ -27,20 +27,14 @@ class Location extends Model
 
     public function products(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class)
-            ->withPivot('date_mov', 'quantity', 'description')
+        return $this->belongsToMany(Product::class, 'location_product')
+            ->withPivot('quantity', 'description')
             ->withTimestamps();
     }
 
-    /**Relacion de 1 to M identifdicar cuando es origen o destino*/
-    public function movements_origin(): HasMany
+    /**Relacion de 1 to M */
+    public function movements(): HasMany
     {
-        return $this->hasMany(Movement::class, 'origin');
-    }
-
-    /**Relacion de 1 to M identifdicar cuando es origen o destino*/
-    public function movements_destiny(): HasMany
-    {
-        return $this->hasMany(Movement::class, 'destiny');
+        return $this->hasMany(Movement::class);
     }
 }

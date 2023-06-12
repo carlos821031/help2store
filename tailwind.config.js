@@ -9,6 +9,7 @@ export default {
         './vendor/laravel/jetstream/**/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
+        './vendor/rappasoft/laravel-livewire-tables/resources/views/**/*.blade.php',/**Si descubre que la purga de CSS de Tailwind está eliminando los estilos que se necesitan, debe indicarle a Tailwind que busque los estilos de tabla para que sepa que no debe purgarlos. */
     ],
 
     theme: {
@@ -19,5 +20,5 @@ export default {
         },
     },
 
-    plugins: [forms, typography],
+    plugins: [forms, typography,require('@tailwindcss/forms'),'@tailwindcss/typography'],
 };

@@ -12,8 +12,8 @@ class Movement extends Model
     use HasFactory;
 
     protected $fillable = [
-        'date_mov', 'type_mov', 'product_id', 'origen', 'destiny', 'deliver', 'receiver', 'quantity_mov', 'user_id', 'quantity_initial_total', 'quantity_initial_origin', 'quantity_initial_destiny', 'price', 'stock_total', 'stock_origin', 'stock_destiny', 'sales', 'description'
-    ]; 
+        'date_mov', 'type_mov', 'product_id', 'location_id', 'employee_id', 'quantity_mov', 'user_id', 'stock_total', 'stock_location', 'price', 'price_total_mov', 'sales', 'sales_total_mov', 'profits_total_mov', 'description'
+    ];
 
     protected $casts = [
         'type_mov' => TypeMovementEnum::class
@@ -23,30 +23,18 @@ class Movement extends Model
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
-    }    
-
-    /** Relacion de M - 1 */
-    public function origin(): BelongsTo
-    {
-        return $this->belongsTo(Location::class, 'id', 'origin');
     }
 
     /** Relacion de M - 1 */
-    public function destiny(): BelongsTo
+    public function location(): BelongsTo
     {
-        return $this->belongsTo(Location::class, 'id', 'destiny');
+        return $this->belongsTo(Location::class);
     }
 
     /** Relacion de M - 1 */
-    public function deliver(): BelongsTo
+    public function employee(): BelongsTo
     {
-        return $this->belongsTo(Employee::class, 'id', 'deliver');
-    }
-
-    /** Relacion de M - 1 */
-    public function receiver(): BelongsTo
-    {
-        return $this->belongsTo(Employee::class, 'id', 'receiver');
+        return $this->belongsTo(Employee::class);
     }
 
     /** Relacion de M - 1 */
@@ -54,4 +42,23 @@ class Movement extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**Lista de productos con existencias */
+    /*
+    static function products_with_stock()
+    {
+        $products = Product::all();
+        $products_with_stock_tmp = [];
+
+        foreach ($products as $product) {
+            $last_movimient = Movement::where('product_id', $product->id)                
+                ->first();
+
+            if ($last_movimient) {
+                $products_with_stock_tmp[] = $product->get();
+            }
+        }
+        return $products_with_stock_tmp;
+    }
+    */
 }

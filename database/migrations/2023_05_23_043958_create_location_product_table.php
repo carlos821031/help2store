@@ -18,10 +18,7 @@ return new class extends Migration
                 ->comment('Foranea a Location');
             $table->foreignId('product_id')
                 ->constrained()
-                ->comment('Foranea a Product');
-            $table->date('date_mov')
-                ->comment('Fecha de la operacion.')
-                ->index()->format('d/m/Y');            
+                ->comment('Foranea a Product');                       
             $table->integer('quantity')->comment('Existencia del producto en la ubicacion.');                     
             $table->string('description')->nullable()->comment('Decripcion de la operacion');
             $table->timestamps();

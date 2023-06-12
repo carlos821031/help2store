@@ -24,8 +24,8 @@ class ProductFactory extends Factory
             'image' => null,
             'quantity_min' => $this->faker->numberBetween(20,40),
             'quantity_max' => $this->faker->numberBetween(100,150),
-            'sales' => $this->faker->randomFloat(8,1,9),
-            'price' => $this->faker->randomFloat(8,10,20),
+            'sales' => $this->faker->randomFloat(8,10,20),
+            'price' => $this->faker->randomFloat(8,1,9),
         ];
     }
 }
