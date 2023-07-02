@@ -16,24 +16,26 @@ use Livewire\Component;
 
 class CreateMovement extends Component
 {
-    public $open = false;
+    public $open = false;//Control del modal
     /**Todo lo que termina en _insert es un elemento del formulario */
-    public $date_mov_insert;
-    public $type_mov_insert;
-    public $type_movements;
-    public $product_insert;
-    public $products;
-    public $location_insert;
-    public $locations;
-    public $employee_insert;
-    public $employees;
-    public $stock_location_insert;
-    public $price_insert;
-    public $sales_insert;
+    public $date_mov_insert;//Referente al campo fecha
+    public $type_mov_insert;//Referente al campo typo de movimiento seleccionado
+    public $type_movements;//Utilizado en esta clase como tmp de typo de mov
+    public $product_insert;//Referente al producto seleccionado en el formulario
+    public $products;//Utilizado en es esta clase como tmp de productos
+    public $location_insert;//Referente al location seleccionado en el formulario
+    public $locations;//Utilizado en es esta clase como tmp de location
+    public $employee_insert;//Referente al empleado seleccionado en el formulario
+    public $employees;//Utilizado en es esta clase como tmp de empleado
+    public $stock_location_insert;//Referente a la existencia en la location seleccionado en el formulario
+    public $stock_Warehouse_insert;//Referente a la cantidad del producto movido del almacen al location seleccionado en el formulario
+    public $stock_Warehouse;//Referente a la existencia del producto en el almacen    
+    public $price_insert;//Referente al costo seleccionado en el formulario
+    public $sales_insert;//Referente a la venta seleccionado en el formulario
     public $sales_insert_dispo; //Abilita o no, el campo de testo del presio de venta
-    public $quantity_mov_insert;
-    public $description_insert;
-    public $logtmp;
+    public $quantity_mov_insert;//Referente a la cantidad movida seleccionado en el formulario
+    public $description_insert;//Referente a la descripcion seleccionado en el formulario
+    public $logtmp;// Variable tmp para mis controles
 
 
     public function render()
@@ -44,16 +46,16 @@ class CreateMovement extends Component
     public function mount()
     {
 
-        $this->date_mov_insert = date('Y-m-d');
-        $this->type_movements = TypeMovementEnum::class;
-        $this->employees = Employee::orderBy('name')->get();
+        $this->date_mov_insert = date('Y-m-d');//Inicio con la fecha actual
+        $this->type_movements = TypeMovementEnum::class;//Clase enum q me da los tipos de mov validos
+        $this->employees = Employee::orderBy('name')->get();//Comienzo mostrando todos los empleados
         //$this->date_mov_insert = '2023-06-09';
         if ($this->type_mov_insert <> '') {
-            $this->products = Product::orderBy('name')->get();
-            $this->locations = Location::orderBy('name')->get();
+            //$this->products = Product::orderBy('name')->get();
+            //$this->locations = Location::orderBy('name')->get();
             $this->sales_insert_dispo = "";
-
             $this->stock_location_insert = '0';
+            $this->stock_Warehouse_insert = '';
         }
         $this->logtmp = 'Vacio';
     }
@@ -83,8 +85,12 @@ class CreateMovement extends Component
         return $rules;
     }
 
+    /**
+     * 
+     */
     public function updateddatemovinsert()
     {
+        //Quitar
         $this->logtmp();
     }
 
@@ -109,8 +115,13 @@ class CreateMovement extends Component
         } elseif (($this->type_mov_insert <> '') and (TypeMovementEnum::from($this->type_mov_insert)->isEntrada())) {
             /**Si no es una salida muestro todos los productos*/
             $this->products = Product::all();
-            /**reinicio los valores de los demas campos del formulario */
-            $this->locations = Location::orderBy('name')->get();
+            /**reinicio los valores de los demas campos del formulario.
+             * Si es Entrada solo se puede seleccionar el Almacen
+             *  Se pone estatico a solicitud del cliente 
+             * Se podria quitar el tipo de mov. Ha existido variacienes en el proyecto despues de definirse.
+             * */
+            $this->locations = Location::where('name', 'Almacen')->get();
+            //$this->locations = Location::orderBy('name')->get();
             $this->stock_location_insert = '0';
             /**variable para desabilitar el campo de recio de venta en caso que sea una entrada */
             $this->sales_insert_dispo = 'disabled';
@@ -120,6 +131,9 @@ class CreateMovement extends Component
             $this->sales_insert_dispo = "";
             $this->stock_location_insert = '0';
         }
+        /**
+         * Quitar
+         */
         $this->logtmp();
     }
 
@@ -172,6 +186,15 @@ class CreateMovement extends Component
             if (!is_null($product) && !is_null($product->pivot)) {
                 $this->stock_location_insert = $product->pivot->quantity;
             }
+            /**Cantidad del producto en el almacen */
+            //$this->stock_Warehouse_insert = '';
+            $product = Location::find('2')
+                ->products()
+                ->where('products.id', $this->product_insert)
+                ->first();
+            if (!is_null($product) && !is_null($product->pivot)) {
+                $this->stock_Warehouse = $product->pivot->quantity;
+            }                
         }
         $this->logtmp();
     }
@@ -222,10 +245,12 @@ class CreateMovement extends Component
                 $this->location_insert = '';
                 $this->locations = '';
                 $this->stock_location_insert = 0;
+                $this->stock_Warehouse_insert = '';
+                $this->stock_Warehouse = '0';
                 $this->price_insert = 0;
                 $this->sales_insert = 0;
                 $this->sales_insert_dispo = ''; //Abilita o no, el campo de testo del presio de venta          
-                $this->quantity_mov_insert = 0;
+                $this->quantity_mov_insert = '';
                 $this->description_insert = '';
                 //$employee_insert;
                 //$employees;   
@@ -237,6 +262,8 @@ class CreateMovement extends Component
                 //$this->product_insert = '';
                 //$this->location_insert = '';
                 //$this->locations = '';
+                $this->stock_Warehouse_insert = '';
+                $this->stock_Warehouse = '0';
                 $this->stock_location_insert = 0;
                 $this->price_insert = 0;
                 $this->sales_insert = 0;
@@ -252,6 +279,8 @@ class CreateMovement extends Component
                 //$type_movements;
                 $this->product_insert = '';
                 $this->products = '';
+                $this->stock_Warehouse_insert = '';
+                $this->stock_Warehouse = '0';
                 //$this->location_insert = '';
                 //$this->locations = '';
                 $this->stock_location_insert = 0;
@@ -274,7 +303,9 @@ class CreateMovement extends Component
      */
     public function save(Request $request)
     {
+        //Quitar
         $this->logtmp();
+        /**Validamos */
         $this->validate();
         /**Actualizo la existencia del producto y location en la tabla pivote */
         $this->edit_quantity($this->location_insert, $this->product_insert, abs($this->quantity_mov_insert), $this->type_mov_insert);
@@ -330,6 +361,9 @@ class CreateMovement extends Component
         }
     }
 
+    /**
+     * Se puede quitar esta funcion en cuanto se termine el proyecto
+     */
     public function logtmp($sms = '')
     {
         $this->logtmp = ' date_mov:' . $this->date_mov_insert;

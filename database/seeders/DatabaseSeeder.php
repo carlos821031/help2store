@@ -96,6 +96,7 @@ class DatabaseSeeder extends Seeder
             'code' => '00000004',
             'latitude' => '00000004',
             'longitude' => '00000004',
+            'shop' => '1',
         ]);
         /*location::create([
             'name' => 'Cliente',

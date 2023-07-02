@@ -105,8 +105,30 @@
                     </div>
                     <div class="bg-blue-100">
                         <label class="block uppercase tracking-wide text-gray-900 text-sm font-bold mb-2"
+                            for="stock_location_insert" value="">
+                            Inicio
+                        </label>
+                        <input
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            id="stock_location_insert" type="text" placeholder="0"
+                            wire:model="stock_location_insert" disabled>
+                        <x-input-error for="stock_location_insert" />
+                    </div>
+                    <div class="bg-blue-100">
+                        <label class="block uppercase tracking-wide text-gray-900 text-sm font-bold mb-2"
+                            for="stock_Warehouse_insert" value="">
+                            Disponibilidad
+                        </label>
+                        <input
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            id="stock_Warehouse_insert" type="text" placeholder="Almacen:{{ $stock_Warehouse }}" {{ $sales_insert_dispo }}
+                            wire:model="stock_Warehouse_insert">
+                        <x-input-error for="stock_Warehouse_insert" />
+                    </div>
+                    <div class="bg-blue-100">
+                        <label class="block uppercase tracking-wide text-gray-900 text-sm font-bold mb-2"
                             for="quantity_mov_insert" value="">
-                            Cantidad Movida (Actual: {{ $stock_location_insert }} )
+                            Venta
                         </label>
                         <input
                             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -120,11 +142,11 @@
                             Precio de Venta (Costo: {{ $price_insert }} )
                         </label>
                         <input id="sales_insert" type="text" placeholder="Ejemplo:300.00" wire:model="sales_insert"
-                            {{ $sales_insert_dispo }} }}
+                            {{ $sales_insert_dispo }}
                             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                         <x-input-error for="sales_insert" />
                     </div>
-                    <div class="bg-blue-100 col-span-1 sm:col-span-2">
+                    <div class="bg-blue-100 col-span-1 sm:col-span-4">
                         <label for="description_insert"
                             class="block uppercase tracking-wide text-gray-900 text-sm font-bold mb-2">Descripcion</label>
                         <input id="description_insert" type="text"

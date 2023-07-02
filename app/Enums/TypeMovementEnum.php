@@ -5,14 +5,14 @@ namespace App\Enums;
 enum TypeMovementEnum: string
 {
 	case Entrada = 'entrada';//Devolver un array(entrada, recibe) o array(salida,entrega) que sea 1 - entrada(para tipo de mov) y entrega(para el trabajador que realiza la operacion)
-	case Salida = 'salida';
+	case Ventas = 'salida';
 
 	/*
 	** Si el tipo de movimiento provoca q el valor de la existencia disminulla
 	*/
 	public function isValueDesc(): bool
 	{
-		return ($this->value === self::Salida->value);
+		return ($this->value === self::Ventas->value);
 	}
 
 	/*
@@ -30,6 +30,6 @@ enum TypeMovementEnum: string
 
 	public function isSalida(): bool
 	{
-		return $this->value === self::Salida->value;
+		return $this->value === self::Ventas->value;
 	}	
 }
